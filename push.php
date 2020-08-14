@@ -41,14 +41,11 @@ try{
     $event = $repository->createEvent();
     $repository->onPush(function() use ($event, $workdir, $response){
         if($event->getBranchName() === 'master'){
-            if(isset($outputArr, $returnArr)){
-                unset($outputArr, $returnArr);
-            }
-            exec(sprintf('cd %s && git pull origin master', $workdir), $outputArr, $returnArr);
-            if(isset($outputArr,$returnArr)){
+            $result = exec(sprintf('cd %s && git pull origin master 1&2>/dev/null ', $workdir), $outputArr,
+                $returnArr);
+            if(isset($outputArr,$returnArr, $result)){
                 unset($outputArr,$returnArr);
             }
-            exit('git pull success');
         }
         $response->setContent('git pull success');
     });
@@ -56,6 +53,5 @@ try{
     $response->setStatusCode($e->getCode())->setContent($e->getMessage());
 }finally{
     $response->send();
-    exit(0);
 }
  
