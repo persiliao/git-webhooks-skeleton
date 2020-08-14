@@ -40,7 +40,7 @@ try{
     $event = $repository->createEvent();
     $repository->onPush(function() use ($event, $workdir, $response){
         if($event->getBranchName() === 'master'){
-            exec(sprintf('cd %s && git pull', $workdir), $ouputArr, $returnArr);
+            @exec(sprintf('cd %s && git pull', $workdir), $ouputArr, $returnArr);
             if(isset($outputArr,$returnArr)){
                 unset($outputArr,$returnArr);
             }
