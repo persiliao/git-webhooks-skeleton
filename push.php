@@ -48,7 +48,6 @@ try{
         $response->setContent('git pull success');
     });
 }catch(Exception|Error $e){
-    error_log($e->getMessage());
     $response->setStatusCode($e->getCode())->setContent($e->getMessage());
 }finally{
     $response->send();
