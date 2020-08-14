@@ -14,8 +14,6 @@ use PersiLiao\Utils\DotEnv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-error_reporting(0);
-
 try{
     if(file_exists(__DIR__ . '/.env') === false){
         throw new RuntimeException('.env file is missing');
@@ -27,7 +25,7 @@ try{
     if(empty($name) || empty($secret) || empty($workdir)){
         throw new RuntimeException('Please check the .env file configuration');
     }
-    if(!is_dir($workdir) || !is_writeable($workdir)){
+    if(!is_dir($workdir) || !is_writable($workdir)){
         throw new RuntimeException('Please check the .env WorkerDirectory configuration');
     }
     $response = new Response();
@@ -39,7 +37,7 @@ try{
         new GiteaProvider($request)
     ], $secrets);
     $event = $repository->createEvent();
-    $repository->onPush(function() use ($event, $workdir, $response){
+    $repository->onPush(static function() use ($event, $workdir, $response){
         if($event->getBranchName() === 'master'){
             $result = exec(sprintf('cd %s && git pull origin master 1&&2>/dev/null ', $workdir), $outputArr,
                 $returnArr);
