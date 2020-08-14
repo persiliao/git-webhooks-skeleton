@@ -44,7 +44,7 @@ try{
             if(isset($outputArr, $returnArr)){
                 unset($outputArr, $returnArr);
             }
-            exec(sprintf('cd %s && git pull origin master', $workdir), $outputArr, $returnArr);
+            passthru(sprintf('cd %s && git pull origin master', $workdir), $outputArr);
             /*if(isset($outputArr,$returnArr)){
                 unset($outputArr,$returnArr);
             }*/
