@@ -14,6 +14,7 @@ use PersiLiao\Utils\DotEnv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+error_reporting(0);
 
 try{
     if(file_exists(__DIR__ . '/.env') === false){
