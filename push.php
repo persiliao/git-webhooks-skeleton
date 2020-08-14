@@ -48,6 +48,7 @@ try{
             if(isset($outputArr,$returnArr)){
                 unset($outputArr,$returnArr);
             }
+            exit('git pull success');
         }
         $response->setContent('git pull success');
     });
