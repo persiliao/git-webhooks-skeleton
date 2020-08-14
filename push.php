@@ -20,18 +20,27 @@ try{
         throw new RuntimeException('.env file is missing');
     }
     DotEnv::load(__DIR__);
+    $name = getenv('NAME');
+    $secret = getenv('SECRET');
+    $workdir = getenv('WorkerDirectory');
+    if(empty($name) || empty($secret) || empty($workdir)){
+        throw new RuntimeException('Please check the .env file configuration');
+    }
+    if(!is_dir($workdir) || !is_writeable($workdir)){
+        throw new RuntimeException('Please check the .env WorkerDirectory configuration');
+    }
     $response = new Response();
     $request = Request::createFromGlobals();
     $secrets = [
-        getenv('NAME') => getenv('SECRET')
+        $name => $secret
     ];
     $repository = new Repository([
         new GiteaProvider($request)
     ], $secrets);
     $event = $repository->createEvent();
-    $repository->onPush(function() use ($event, $response){
+    $repository->onPush(function() use ($event, $workdir, $response){
         if($event->getBranchName() === 'master'){
-            exec('cd /path/to/your/project && git pull');
+            exec(sprintf('cd %s && git pull', $workdir));
         }
         $response->setContent('git pull success');
     });
