@@ -41,7 +41,7 @@ try{
     $event = $repository->createEvent();
     $repository->onPush(function() use ($event, $workdir, $response){
         if($event->getBranchName() === 'master'){
-            $result = exec(sprintf('cd %s && git pull origin master 2>/dev/null ', $workdir), $outputArr,
+            $result = exec(sprintf('cd %s && git pull origin master 1&&2>/dev/null ', $workdir), $outputArr,
                 $returnArr);
             if(isset($outputArr,$returnArr, $result)){
                 unset($outputArr,$returnArr);
