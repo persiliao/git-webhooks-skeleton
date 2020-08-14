@@ -44,10 +44,10 @@ try{
             if(isset($outputArr, $returnArr)){
                 unset($outputArr, $returnArr);
             }
-            passthru(sprintf('cd %s && git pull origin master', $workdir), $outputArr);
-            /*if(isset($outputArr,$returnArr)){
+            exec(sprintf('cd %s && git pull origin master', $workdir), $outputArr, $returnArr);
+            if(isset($outputArr,$returnArr)){
                 unset($outputArr,$returnArr);
-            }*/
+            }
         }
         $response->setContent('git pull success');
     });
@@ -55,5 +55,6 @@ try{
     $response->setStatusCode($e->getCode())->setContent($e->getMessage());
 }finally{
     $response->send();
+    exit(0);
 }
  
