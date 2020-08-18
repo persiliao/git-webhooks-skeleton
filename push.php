@@ -77,7 +77,6 @@ try{
                         }
                     }
                 }
-
             }
         }
         $response->setContent('git pull success');
