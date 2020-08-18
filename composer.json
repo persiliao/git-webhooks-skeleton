@@ -3,7 +3,7 @@
         "persiliao/git-webhooks": "^0.1.0"
     },
     "scripts": {
-        "post-root-package-install": [
+        "post-install-cmd": [
             "@php -r \"file_exists('.config.example.php') || copy('.config.example.php', 'config.php');\""
         ]
     }
