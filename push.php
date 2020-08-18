@@ -39,10 +39,10 @@ try{
                 }
             }
         }
+        $secrets[$name] = $conf['secret'];
     }
     $response = new Response();
     $request = Request::createFromGlobals();
-
     $repository = new Repository([
         new GiteaProvider($request)
     ], $secrets);
