@@ -1,7 +1,5 @@
 {
     "require": {
-        "persiliao/git-webhooks": "^0.1.0",
-        "persiliao/utils": "^0.2.1",
-        "vlucas/phpdotenv": "^5.1"
+        "persiliao/git-webhooks": "^0.1.0"
     }
 }
