@@ -22,6 +22,7 @@ try{
         throw new RuntimeException('Please check the config.php file configuration');
     }
     $secrets = [];
+
     foreach($config as $name => $conf){
         if(empty($name) || !is_string($name)){
             throw new RuntimeException('Please check the config.php file name configuration');
