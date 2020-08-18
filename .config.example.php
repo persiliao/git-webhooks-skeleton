@@ -10,15 +10,16 @@ declare(strict_types=1);
 use PersiLiao\GitWebhooks\Provider\GiteaProvider;
 
 return [
+    // name => Repository name
     'name' => [
         //'driver' => GiteaProvider::class,
-        'secret' => '',
-        'workdir' => '',
-        'command' => [
+        'secret' => '', // Git webhook secret
+        'workdir' => '', // Project worker directory
+        'command' => [ // Event command
             [
-                'branch' => 'master',
-                'event' => 'push',
-                'exec' => [
+                'branch' => 'master', // Branch
+                'event' => 'push', // Event name
+                'exec' => [ // Exec command
                     '// rm -rf %s/data'
                 ]
             ]
