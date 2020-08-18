@@ -12,32 +12,33 @@ use PersiLiao\GitWebhooks\Provider\GiteaProvider;
 use PersiLiao\GitWebhooks\Repository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use PersiLiao\GitWebhooks\Exception\InvalidArgumentException as GitWebhooksInvalidArgumentException;
 
 try{
     $response = new Response();
     if(file_exists(__DIR__ . '/config.php') === false){
-        throw new RuntimeException('config.php file is missing');
+        throw new GitWebhooksInvalidArgumentException('config.php file is missing');
     }
     $config = require __DIR__ . '/config.php';
     if(!isset($config) || !is_array($config) || empty($config)){
-        throw new RuntimeException('Please check the config.php file configuration');
+        throw new GitWebhooksInvalidArgumentException('Please check the config.php file configuration');
     }
     $secrets = [];
 
     foreach($config as $name => $conf){
         if(empty($name) || !is_string($name)){
-            throw new RuntimeException('Please check the config.php file name configuration');
+            throw new GitWebhooksInvalidArgumentException('Please check the config.php file name configuration');
         }
         if(!isset($conf['secret'], $conf['workdir'])){
-            throw new RuntimeException('Please check the config.php file secret, workdir configuration');
+            throw new GitWebhooksInvalidArgumentException('Please check the config.php file secret, workdir configuration');
         }
         if(!is_dir($conf['workdir']) || !is_writable($conf['workdir'])){
-            throw new RuntimeException('Please check the config.php file WorkerDirectory configuration');
+            throw new GitWebhooksInvalidArgumentException('Please check the config.php file WorkerDirectory configuration');
         }
         if(isset($conf['command']) && !empty($conf['command']) && is_array($conf['command'])){
             foreach($conf['command'] as $command){
                 if(!isset($command['event'], $command['exec'])){
-                    throw new RuntimeException('Please check the config.php file command configuration');
+                    throw new GitWebhooksInvalidArgumentException('Please check the config.php file command configuration');
                 }
             }
         }
