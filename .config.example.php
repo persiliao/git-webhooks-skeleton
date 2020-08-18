@@ -12,7 +12,7 @@ use PersiLiao\GitWebhooks\Provider\GiteaProvider;
 return [
     'name' => [
         //'driver' => GiteaProvider::class,
-        'secert' => '',
+        'secret' => '',
         'workdir' => '',
         'command' => [
             [
