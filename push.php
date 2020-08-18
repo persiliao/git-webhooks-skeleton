@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 try{
+    $response = new Response();
     if(file_exists(__DIR__ . '/config.php') === false){
         throw new RuntimeException('config.php file is missing');
     }
@@ -42,7 +43,6 @@ try{
         }
         $secrets[$name] = $conf['secret'];
     }
-    $response = new Response();
     $request = Request::createFromGlobals();
     $repository = new Repository([
         new GiteaProvider($request)
