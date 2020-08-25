@@ -10,6 +10,10 @@ require __DIR__ . '/vendor/autoload.php';
 
 use PersiLiao\GitWebhooks\Exception\InvalidArgumentException as GitWebhooksInvalidArgumentException;
 use PersiLiao\GitWebhooks\Provider\GiteaProvider;
+use PersiLiao\GitWebhooks\Provider\GiteeProvider;
+use PersiLiao\GitWebhooks\Provider\GithubProvider;
+use PersiLiao\GitWebhooks\Provider\GitlabProvider;
+use PersiLiao\GitWebhooks\Provider\GogsProvider;
 use PersiLiao\GitWebhooks\Repository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +36,7 @@ try{
         if(!isset($conf['secret'], $conf['workdir'])){
             throw new GitWebhooksInvalidArgumentException('Please check the config.php file secret, workdir configuration');
         }
-        if(!is_dir($conf['workdir']) || !is_writable($conf['workdir'])){
+        if(!is_dir($conf['workdir'])){
             throw new GitWebhooksInvalidArgumentException('Please check the config.php file WorkerDirectory configuration');
         }
         if(isset($conf['command']) && !empty($conf['command']) && is_array($conf['command'])){
@@ -46,7 +50,11 @@ try{
     }
     $request = Request::createFromGlobals();
     $repository = new Repository([
-        new GiteaProvider($request)
+        new GiteaProvider($request),
+        new GithubProvider($request),
+        new GitlabProvider($request),
+        new GiteeProvider($request),
+        new GogsProvider($request)
     ], $secrets);
     $event = $repository->createEvent();
     $repository->onPush(static function() use ($event, $response, $config){
