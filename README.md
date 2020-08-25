@@ -9,11 +9,19 @@ This is a skeleton application using the [git-webhooks](https://github.com/persi
 
 # Installation
 
+#### Use composer
+
+```shell script
+composer create-project persiliao/git-webhooks-skeleton:dev-master
+```
+
 ```shell script
 $ git clone https://github.com/persiliao/git-webhooks-skeleton /to/path
 $ cd /to/path
 $ composer install
 ```
+
+
 
 # Config
 

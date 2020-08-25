@@ -17,6 +17,7 @@
         }
     ],
     "require": {
+        "php": ">=7.2",
         "persiliao/git-webhooks": "^0.1.0"
     },
     "scripts": {
