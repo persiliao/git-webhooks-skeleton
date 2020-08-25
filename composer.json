@@ -1,4 +1,21 @@
 {
+    "name": "persiliao/git-webhooks-skeleton",
+    "type": "project",
+    "license": "MIT",
+    "keywords": [
+        "git",
+        "webhook",
+        "gitwebhook",
+        "webhooks",
+        "git-webhooks"
+    ],
+    "authors": [
+        {
+            "name": "Persi.Liao",
+            "email": "xiangchu.liao@gmail.com",
+            "homepage": "https://www.github.com/persiliao"
+        }
+    ],
     "require": {
         "persiliao/git-webhooks": "^0.1.0"
     },
