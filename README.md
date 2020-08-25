@@ -10,7 +10,7 @@ This is a skeleton application using the [git-webhooks](https://github.com/persi
 # Installation
 
 ```shell script
-$ git clone https://github.com/persiliao/git-webhooks /to/path
+$ git clone https://github.com/persiliao/git-webhooks-skeleton /to/path
 $ cd /to/path
 $ composer install
 ```
