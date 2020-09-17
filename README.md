@@ -39,7 +39,7 @@ return [
                 'branch' => 'master', // Branch
                 'event' => 'push', // Event name
                 'exec' => [ // Exec command
-                    '// rm -rf %s/data'
+                    // do something
                 ]
             ]
         ]
