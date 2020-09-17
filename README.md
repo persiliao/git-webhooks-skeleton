@@ -12,11 +12,12 @@ This is a skeleton application using the [git-webhooks](https://github.com/persi
 #### Use composer
 
 ```shell script
-composer create-project persiliao/git-webhooks-skeleton:dev-master
+composer create-project persiliao/git-webhooks-skeleton project-name
 ```
+#### Use git
 
 ```shell script
-$ git clone https://github.com/persiliao/git-webhooks-skeleton /to/path
+$ git clone https://github.com/persiliao/git-webhooks-skeleton /path
 $ cd /to/path
 $ composer install
 ```
@@ -45,4 +46,8 @@ return [
     ]
 ];
 ```
+
+# LICENSE
+
+MIT LICENSE
 
