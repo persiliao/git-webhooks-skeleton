@@ -69,7 +69,7 @@ try{
             foreach($repositoryConfig['command'] as $command){
                 if((!isset($command['branch']) || empty($command['branch'])) || (isset($command['branch']) &&
                         $command['branch'] === $branchName)){
-                    if((isset($command['event']) && !empty($command['event']) && $command['event'] === $event) && (isset($command['exec']) && !empty
+                    if((isset($command['event']) && !empty($command['event'])) && (isset($command['exec']) && !empty
                             ($command['exec']))){
                         if(is_array($command['exec'])){
                             foreach($command['exec'] as $exec){
@@ -81,7 +81,6 @@ try{
                                 }
                                 exec($exec, $outputArr, $returnArr);
                                 if(isset($outputArr, $returnArr)){
-                                    error_log(var_export($outputArr, true));
                                     unset($outputArr, $returnArr);
                                 }
                             }
