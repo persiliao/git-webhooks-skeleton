@@ -58,21 +58,18 @@ try{
     ], $secrets);
     $event = $repository->createEvent();
     $repository->onPush(static function() use ($event, $response, $config){
-        $defaultEvent = 'push';
-        $defaultPullCommand = 'cd %s && git pull origin %s 2>/dev/null';
-        $repositoryName = $event->getRepository()->getName();
-        $repositoryConfig = $config[$repositoryName] ?? [];
+        $repositoryName = $event->getRepository()->getFullName();
+        if(!isset($config[$repositoryName])){
+            return null;
+        }
+        $repositoryConfig = $config[$repositoryName];
         $workdir = $repositoryConfig['workdir'];
         $branchName = $event->getBranchName();
-        exec(sprintf($defaultPullCommand, $workdir, $branchName), $outputArr, $returnArr);
-        if(isset($outputArr, $returnArr)){
-            unset($outputArr, $returnArr);
-        }
         if(isset($repositoryConfig['command']) && !empty($repositoryConfig['command']) && is_array($repositoryConfig['command'])){
             foreach($repositoryConfig['command'] as $command){
                 if((!isset($command['branch']) || empty($command['branch'])) || (isset($command['branch']) &&
                         $command['branch'] === $branchName)){
-                    if((isset($command['event']) && !empty($command['event']) && $command['event'] === $defaultEvent) && (isset($command['exec']) && !empty
+                    if((isset($command['event']) && !empty($command['event']) && $command['event'] === $event) && (isset($command['exec']) && !empty
                             ($command['exec']))){
                         if(is_array($command['exec'])){
                             foreach($command['exec'] as $exec){
@@ -84,6 +81,7 @@ try{
                                 }
                                 exec($exec, $outputArr, $returnArr);
                                 if(isset($outputArr, $returnArr)){
+                                    error_log(var_export($outputArr, true));
                                     unset($outputArr, $returnArr);
                                 }
                             }
@@ -92,7 +90,7 @@ try{
                 }
             }
         }
-        $response->setContent('git pull success');
+        $response->setContent('success');
     });
 }catch(Exception|Error $e){
     $response->setStatusCode($e->getCode())->setContent($e->getMessage());
