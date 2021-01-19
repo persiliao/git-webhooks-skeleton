@@ -58,7 +58,7 @@ try{
     ], $secrets);
     $event = $repository->createEvent();
     $repository->onPush(static function() use ($event, $response, $config){
-        $repositoryName = $event->getRepository()->getFullName();
+        $repositoryName = $event->getRepository()->getName();
         if(!isset($config[$repositoryName])){
             return null;
         }
